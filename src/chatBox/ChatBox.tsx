@@ -8,13 +8,13 @@ interface Message {
 function ChatBox() {
     const [messages, setMessages] = useState<Message[]>([{ name: 'Obi-wan', prompt: 'Good evening Leto, how was your day?' }]);
     const [loading, setLoading] = useState<boolean>(false);
-
+    
     const fetchMessages = async () => {
         if (messages.length === 0) return; 
-
+        
         setLoading(true); 
         const lastMessage = messages[messages.length - 1];
-
+        
         try {
             const response = await fetch('http://localhost:8080/chat', {
                 method: 'POST',
@@ -30,7 +30,7 @@ function ChatBox() {
 
             const data = await response.json();
             
-            await new Promise(resolve => setTimeout(resolve, 10000)); 
+            await new Promise(resolve => setTimeout(resolve, 20000)); 
             fetchAudio(data);
 
             setMessages(prevMessages => [...prevMessages, data]);
@@ -52,7 +52,7 @@ function ChatBox() {
                 },
                 body: JSON.stringify({ "name": message.name,
                     "prompt": message.prompt
-                 })
+                })
             });
 
             if (!response.ok) {
@@ -71,7 +71,7 @@ function ChatBox() {
     useEffect(() => {
         fetchMessages(); 
     }, [messages]); 
-
+    
     return (
         <div style={{ width: "100%", display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             {messages.map((message, index) => (
