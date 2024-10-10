@@ -5,7 +5,7 @@ function App() {
 
   return (
     <>
-      <h1>On the couch with Obi-Wan and LetoII</h1>
+      <h1>George and Bill discuss being dead...</h1>
       <ChatBox />
     </>
   )
